@@ -1,0 +1,6 @@
+[City 1: San Antonio][City 2: Cairo][Azimuth: 43.543329]
+[City 1: San Francisco][City 2: Honolulu][Azimuth: 53.607877]
+[City 1: Paris][City 2: Barcelona][Azimuth: -0.736535]
+[City 1: North Pole][City 2: South Pole][Azimuth: -0.000000]
+[City 1: Vaitupua Samoa][City 2: Ytridalur Iceland][Azimuth: -28.158530]
+[City 1: Quito Ecuador][City 2: Djibouti][Azimuth: 83.229829]

@@ -1,0 +1,37 @@
+azimuth problem
+
+Two points between two cities and the north pole will be the triangle
+Need two angles to compute third angle
+Have to find angle in which the plane should travel to the other city
+
+special cases:
+when a triangle isn't formed, if they are directly north and south of each other.
+the other hemisphere
+
+
+graphs
+
+a graph is a more general data struct than a tree and usually has a more complex implementation 
+unlike a tree a graph may have loops
+graphs tend to represent data relationships more complex than ehirarchy and/or ordering
+a typical use it hat of a map 
+
+simple graph: no loops or multi-edges
+
+cyclic graph contains no cycles
+
+Two Common Dats Structures:
+-Adjacency Matrix (simpler)
+-Adjacency List 
+
+Shortest Paths:
+-Dijkstra's algorithm 
+
+
+Implementation
+-EAch city needs to store the edges and destinations out of it
+-it simplifies matters to give te nodes a short name that can be mapped either way tothe long name of the city
+-you will need an auxillary array to store the parent of each node from s
+-can be done without a priority queue by doing a brute force min search
+
+

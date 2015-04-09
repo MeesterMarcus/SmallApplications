@@ -1,0 +1,147 @@
+#define _USE_MATH_DEFINES
+
+#include <stdio.h>
+#include <math.h>
+
+#define EARTH_CIRCUM 40074.0
+
+//http://www.krysstal.com/sphertrig.html
+
+double findDistance(double x1, double y1,char latD,char longD, double x2, double y2, char latD2, char longD2);
+double findAzimuth(double x1, double y1,char latD,char longD, double x2, double y2, char latD2, char longD2,double distance);
+
+int main()
+{
+
+	char line[256];
+
+    //Data
+    char name[64];
+    //City 1
+    int lat_h, lat_m, lat_s; char lat_d;
+    int long_h, long_m, long_s; char long_d;
+	double lat, lon;
+	
+	// data
+    char name2[64];
+    //City 2
+    int lat_h2, lat_m2, lat_s2; char lat_d2;
+    int long_h2, long_m2, long_s2; char long_d2;
+	double lat2, lon2;
+	
+	double distance,azimuth;
+
+    FILE *fin = fopen("locations.txt", "r");
+	FILE *fout = fopen("distances.txt","w"); 
+	FILE *foutAzimuth = fopen("azimuth.txt","w"); 
+	
+	int n = 0; 
+	
+    while (NULL != fgets(line, 256, fin)) {
+        sscanf(line, "%[^=]=%*[ ]%d:%d:%d%*[ ]%c%*[ ]%d:%d:%d%*[ ]%c \
+					  %[^=]=%*[ ]%d:%d:%d%*[ ]%c%*[ ]%d:%d:%d%*[ ]%c",
+            name,
+            &lat_h, &lat_m, &lat_s, &lat_d,
+            &long_h, &long_m, &long_s, &long_d,
+			name2,
+            &lat_h2, &lat_m2, &lat_s2, &lat_d2,
+            &long_h2, &long_m2, &long_s2, &long_d2
+        );
+		
+		//Degree + (Minute/60) + (Seconds/3600)
+		lat = lat_h+(lat_m/60.0)+(lat_s/3600.0);
+		lon = long_h+(long_m/60.0)+(long_s/3600.0);
+		
+		lat2 = lat_h2+(lat_m2/60.0)+(lat_s2/3600.0);
+		lon2 = long_h2+(long_m2/60.0)+(long_s2/3600.0);
+		
+		distance = findDistance(lat,lon,lat_d,long_d,lat2,lon2,lat_d2,long_d2);
+		azimuth = findAzimuth(lat,lon,lat_d,long_d,lat2,lon2,lat_d2,long_d2,distance);
+		
+		if (distance != 20014.0) {
+			distance = EARTH_CIRCUM * distance/360.0;
+		}
+		
+		fprintf(foutAzimuth,"[City1: %s][City2: %s][Azimuth: %f]\n",name,name2,azimuth); 
+		fprintf(fout,"%d %s %s %f\n",n++,name,name2,distance); 
+		
+    }
+	
+	fclose(fin);
+	fclose(fout);
+	printf("\n"); 
+
+    return 0;
+}
+
+//x1 and x2 are latitude
+//y1 and y2 are longitude
+double findDistance(double x1, double y1,char latD,char longD, double x2, double y2, char latD2, char longD2)
+{
+	double a,b,c;
+    double distance,distRad,distDeg;
+	//North Pole= 90:00:00 N 000:00:00 E South Pole= 90:00:00 S 000:00:00 E
+	if (x1 == 90 && y1 == 0 && x2 == 90 && y2 == 0 && latD != latD2) {
+		return 20014.0;
+	}
+    
+	if (longD != longD2) {
+		a = y2+y1;
+	} else{
+		a = y2-y1;
+	}
+
+	if (latD == 'S'){
+		b = 90.0+x1;
+	} else {
+		b = 90.0-x1;
+	}
+    //b = 90.0-x1;
+	if (latD2 == 'S') {
+		c = 90.0+x2;
+	} else {
+		c = 90.0-x2;
+	}
+    //c = 90.0-x2;
+
+    //convert to radians for trig functions
+    a = a * (M_PI/180.0);
+    b = b * (M_PI/180.0);
+    c = c * (M_PI/180.0);
+
+    distRad = cos(b)*cos(c)+sin(b)*sin(c)*cos(a);
+    distRad = acos(distRad);
+    distDeg = distRad*(180/M_PI);
+
+    //distance = EARTH_CIRCUM * distDeg/360.0;
+	
+    return distDeg;
+}
+
+double findAzimuth(double x1, double y1,char latD,char longD, double x2, double y2, char latD2, char longD2,double distance){
+					
+	double azimuth,a,c; 
+	
+	if (longD != longD2) {
+		a = y2+y1;
+	} else{
+		a = y2-y1;
+	}
+	if (latD == 'S') {
+		c = 90+x1;
+	} else{
+		c = 90-x1;
+	}
+	
+	//convert to radians for trig functions
+    a = a * (M_PI/180.0);
+    c = c * (M_PI/180.0);
+	
+	distance = distance *(M_PI/180); 
+	
+	azimuth = sin(a)*sin(c)/sin(distance); 
+	azimuth= asin(azimuth);
+	azimuth = azimuth * (180/M_PI); 
+	
+	return azimuth; 
+}

@@ -1,0 +1,6 @@
+San Antonio= 29:25:51 N 098:29:36 W Cairo= 30:02:00 N 031:17:0 E
+San Francisco= 37:47:48 N 122:24:57 W Honolulu= 21:16:25 N 157:49:13 W
+Paris= 48:52:00 N 002:20:00 E Barcelona= 41:23:00 N 002:11:15 E
+North Pole= 90:00:00 N 000:00:00 E South Pole= 90:00:00 S 000:00:00 E
+Vaitupua Samoa= 13:30:00 S 172:47:00 W Ytridalur Iceland= 65:46:00 N 016:05:00 W
+Quito Ecuador= 00:13:00 S 078:39:00 W Djibouti= 11:31:00 N 043:00:00 E

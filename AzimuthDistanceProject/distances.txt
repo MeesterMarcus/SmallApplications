@@ -1,0 +1,6 @@
+0 San Antonio Cairo 11541.187059
+1 San Francisco Honolulu 3858.222989
+2 Paris Barcelona 833.098012
+3 North Pole South Pole 20014.000000
+4 Vaitupua Samoa Ytridalur Iceland 13960.338459
+5 Quito Ecuador Djibouti 13468.406555
