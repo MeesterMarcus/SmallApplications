@@ -1,0 +1,13 @@
+-rwxrwx--- 1 root vboxsf 44344515 Oct 13 16:58 fcfs.all
+-rwxrwx--- 1 root vboxsf 42267264 Oct 13 16:58 psjf.all
+-rwxrwx--- 1 root vboxsf 46409194 Oct 13 16:58 rr.all
+-rwxrwx--- 1 root vboxsf 43243799 Oct 13 16:58 sjf.all
+  2000001   2000003  44344515 fcfs.all
+  2000001   2000003  42267264 psjf.all
+  2000001   2000003  46409194 rr.all
+  2000001   2000003  43243799 sjf.all
+  8000004   8000012 176264772 total
+bbf51cd3d8e0b2b7af5888e7272bc615  fcfs.all
+656facbb727102ddee1f080c2f3f4301  psjf.all
+932e35f77038444a63f08ae6dd4d234e  rr.all
+55948f639f0dc23dd70c7d67be0c3f33  sjf.all
