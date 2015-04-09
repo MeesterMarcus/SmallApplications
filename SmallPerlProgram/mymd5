@@ -1,0 +1,18 @@
+#!/usr/bin/perl -w
+
+open($in, "find $ARGV[0] -type f|") or die "Can't open rootfile: $!";
+if($ARGV[1]) {
+    open($out,">",$ARGV[1]) or die "Can't open $ARGV[1]: $!";
+    select $out;
+}
+
+while ($line = <$in>) {
+    $line = substr($line,0,length($line)-1);
+    $md5line = `md5sum $line`;
+    @md5array=split(" ",$md5line);
+    printf("%s\t%s\n",$md5array[1],$md5array[0]);
+}
+if ($ARGV[1]) {
+    close $out;
+}
+

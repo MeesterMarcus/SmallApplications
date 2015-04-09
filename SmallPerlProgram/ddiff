@@ -1,0 +1,27 @@
+#!/usr/bin/perl -w
+use File::Compare;
+
+@dir1 = `find $ARGV[0] -type f`;
+@dir2 = `find $ARGV[1] -type f`;
+chop @dir1;
+chop @dir2;
+
+print "\n";
+
+$i = 0;
+while($dir1[$i] && $dir2[$i]) {
+
+    $result = compare($dir1[$i],$dir2[$i]);
+    if ($dir1[$i] eq $dir2[$i]) {
+        if ($result == 0) {
+            print ">$dir1[$i]<\n";
+        } else {
+            print "<$dir1[$i]>\n";
+        }
+    } else {
+        print "<<<$dir1[$i]\n>>> $dir2[$i]\n";
+    }
+    $i++;
+}
+
+print "\n";
